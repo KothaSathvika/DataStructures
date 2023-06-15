@@ -1,3 +1,30 @@
+def height(node):
+    if node is None:
+        return 0
+    else:
+        lheight = height(node.left)
+        rheight = height(node.right)
+
+        if lheight > rheight:
+            return lheight+1
+        else:
+            return rheight+1
+        
+def printCurrentLevel(node, level):
+    if node is None:
+        return
+    if level == 1:
+        print(node.data, end = " ")
+        return
+    elif level > 1:
+        printCurrentLevel(node.left, level-1)
+        printCurrentLevel(node.right, level-1)
+
+def levelOrder(node):
+    h = height(node)
+    for i in range(1, h+1):
+        printCurrentLevel(node, i)
+
 class Node:
     def __init__(self, data):
         self.left = None
@@ -53,8 +80,10 @@ class Node:
             return
         self.postOrder(node.left)
         self.postOrder(node.right)
-        print(node.data)
+        print(node.data, end = " ")
     
+
+        
 
 if __name__ == "__main__":
     root = Node(10)
@@ -78,4 +107,9 @@ if __name__ == "__main__":
     print("\n")
     print("PreOrder of  a tree is")
     root.preOrder(root)
+    print("\n")
+    print("levelOrder of  atree is")
+
+    levelOrder(root)
+    # print("\n")
 
