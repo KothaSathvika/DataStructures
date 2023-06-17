@@ -1,3 +1,4 @@
+#### BASIC APPROACH TO FIND LEVEL ORDER #### TIME COMPLEXITY O(n^2)
 def height(node):
     if node is None:
         return 0
@@ -25,30 +26,49 @@ def levelOrder(node):
     for i in range(1, h+1):
         printCurrentLevel(node, i)
 
+### BFS implementation using Queues #### O(n)
+def levelOrderQueue(node):
+    # print(node.left)
+    if node is None:
+        return
+    queue = []
+    queue.append(node)
+    while (len(queue) > 0):
+        print(queue[0].data, end = " ")
+        node = queue.pop(0)
+
+        if node.left is not None:
+            queue.append(node.left)
+        
+        if node.right is not None:
+            queue.append(node.right)
+
+
+
 class Node:
     def __init__(self, data):
         self.left = None
         self.right = None
         self.data = data
-        print("self.data in main", self.data)
+        # print("self.data in main", self.data)
 
     def insert(self, data):
-        print("data is", data)
-        print("self.data in insert is", self.data)
+        # print("data is", data)
+        # print("self.data in insert is", self.data)
         if self.data:
             if data < self.data:
-                print("less")
+                # print("less")
                 if self.left is None:
                     self.left = Node(data)
-                else:
-                    print("Inserted in less")
+                # else:
+                #     print("Inserted in less")
                     self.left.insert(data)
             elif data > self.data:
-                print("more")
+                # print("more")
                 if self.right is None:
                     self.right = Node(data)
                 else:
-                    print("Inserted in more")
+                    # print("Inserted in more")
                     self.right.insert(data)
                     
         else:
@@ -60,7 +80,7 @@ class Node:
         print(self.data)
         if self.right:
             self.right.printTree()
-
+    ### INORDER TRAVERSAL - TIME COMPLEXITY O(n) ###
     def inOrder(self,node):
         if node is None:
             return
@@ -68,13 +88,15 @@ class Node:
         print(node.data, end = " ")
         self.inOrder(node.right)
 
+    ### PREORDER TRAVERSAL - TIME COMPLEXITY O(n) ###
     def preOrder(self, node):
         if node is None:
             return
-        print(node.data)
+        print(node.data, end = " ")
         self.preOrder(node.left)
         self.preOrder(node.right)
 
+    ### POSTORDER TRAVERSAL - TIME COMPLEXITY O(n) ###
     def postOrder(self, node):
         if node is None:
             return
@@ -89,14 +111,14 @@ if __name__ == "__main__":
     root = Node(10)
     # root.insert(12)
     root.insert(11)
-    print("Insert 14")
+    # print("Insert 14")
     root.insert(7)
     root.insert(9)
     root.insert(15)
     root.insert(18)
 
 
-    root.printTree()
+    # root.printTree()
    
 
     print("InOrder of tree is")
@@ -109,7 +131,8 @@ if __name__ == "__main__":
     root.preOrder(root)
     print("\n")
     print("levelOrder of  atree is")
-
     levelOrder(root)
-    # print("\n")
+    print("\n")
+
+    levelOrderQueue(root)
 
